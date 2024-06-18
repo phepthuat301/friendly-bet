@@ -1,5 +1,5 @@
-const baseUrl = "http://localhost:4000"
-
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+console.log(baseUrl)
 export const submitBet = async (data: any) => {
     const response = await fetch(`${baseUrl}/bet`, {
         method: 'POST',
