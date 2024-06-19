@@ -2,7 +2,7 @@
 
 import { Anchor, Button, Modal, NumberInput, Select, Table, TextInput } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
-import { editMatch, editPlayer, getMatchHistory, getPlayers, submitMatch } from '../services/HttpService';
+import { editMatch, editPlayer, getMatchHistory, getMatchHistoryV2, getPlayers, submitMatch } from '../services/HttpService';
 
 const Setting = ({ setCurrentPage }: any) => {
     const [inputValue, setInputValue] = useState('');
@@ -11,6 +11,7 @@ const Setting = ({ setCurrentPage }: any) => {
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [editResult, setEditResult] = useState('');
     const [editMultiplier, setEditMultiplier] = useState<any>(0);
+    const [editStatus, setEditStatus] = useState('');
     const [players, setPlayers] = useState<any>([]);
     const [player, setPlayer] = useState<any>('');
     const [amount, setAmount] = useState<any>(0);
@@ -41,6 +42,7 @@ const Setting = ({ setCurrentPage }: any) => {
                 ...newCoordinates[selectedIndex],
                 result: editResult,
                 multiplier: editMultiplier,
+                status: editStatus
             };
             setCoordinates(newCoordinates);
             setIsModalOpen(false);
@@ -48,7 +50,8 @@ const Setting = ({ setCurrentPage }: any) => {
             await editMatch({
                 name: newCoordinates[selectedIndex].match,
                 result: editResult,
-                multiplier: editMultiplier
+                multiplier: editMultiplier,
+                status: editStatus
             })
         }
     };
@@ -65,6 +68,7 @@ const Setting = ({ setCurrentPage }: any) => {
             <Table.Td>{item.match}</Table.Td>
             <Table.Td>{item.result}</Table.Td>
             <Table.Td>{item.multiplier}</Table.Td>
+            <Table.Td>{item.status}</Table.Td>
             <Table.Td>
                 <Button onClick={() => handleEdit(index)}>Edit</Button>
             </Table.Td>
@@ -73,11 +77,12 @@ const Setting = ({ setCurrentPage }: any) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const rawResponse = await getMatchHistory()
+            const rawResponse = await getMatchHistoryV2()
             setCoordinates(rawResponse.data.map((item: any) => ({
                 match: item.name,
                 result: item.result,
-                multiplier: item.multiplier
+                multiplier: item.multiplier,
+                status: item.status
             })))
             const res = await getPlayers();
             setPlayers(res.data.map((item: any) => item.name))
@@ -173,6 +178,7 @@ const Setting = ({ setCurrentPage }: any) => {
                                     <Table.Th>Trận</Table.Th>
                                     <Table.Th>Kết quả</Table.Th>
                                     <Table.Th>Tỉ lệ ăn</Table.Th>
+                                    <Table.Th>Trạng thái</Table.Th>
                                     <Table.Th>Hành động</Table.Th>
                                 </Table.Tr>
                             </Table.Thead>
@@ -187,6 +193,12 @@ const Setting = ({ setCurrentPage }: any) => {
                     onClose={() => setIsModalOpen(false)}
                     title="Edit Match"
                 >
+                    <TextInput
+                        label="Status"
+                        placeholder="Enter status"
+                        value={editStatus}
+                        onChange={(event) => setEditStatus(event.currentTarget.value)}
+                    />
                     <TextInput
                         label="Result"
                         placeholder="Enter result"

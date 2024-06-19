@@ -32,6 +32,11 @@ export const getMatchHistory = async () => {
     return response.json();
 }
 
+export const getMatchHistoryV2 = async () => {
+    const response = await fetch(`${baseUrl}/bet/match-v2`);
+    return response.json();
+}
+
 export const editMatch = async (data: any) => {
     const response = await fetch(`${baseUrl}/bet/edit-match`, {
         method: 'POST',

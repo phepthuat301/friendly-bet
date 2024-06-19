@@ -1,6 +1,6 @@
 'use client';
 
-import { Anchor, Button, NumberInput, Select, Table, TextInput } from '@mantine/core';
+import { Anchor, Button, NumberInput, Select, Table } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { getBetHistory, getMatchHistory, getPlayers, submitBet } from '../services/HttpService';
 
