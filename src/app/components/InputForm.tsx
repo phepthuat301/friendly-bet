@@ -50,8 +50,6 @@ const InputForm = ({ setCurrentPage }: any) => {
                 }
                 return updatedCoordinates;
             });
-            setSelectedCoordinate('');
-            setInputValue(null);
         }
     };
 
