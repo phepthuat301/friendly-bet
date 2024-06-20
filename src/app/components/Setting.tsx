@@ -3,15 +3,16 @@
 import { Anchor, Button, Modal, NumberInput, Select, Table, TextInput } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { editMatch, editPlayer, getMatchHistory, getMatchHistoryV2, getPlayers, submitMatch } from '../services/HttpService';
+import { ratio } from './InputForm';
 
 const Setting = ({ setCurrentPage }: any) => {
     const [inputValue, setInputValue] = useState('');
     const [coordinates, setCoordinates] = useState<any>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-    const [editResult, setEditResult] = useState('');
+    const [editResult, setEditResult] = useState<any>('');
     const [editMultiplier, setEditMultiplier] = useState<any>(0);
-    const [editStatus, setEditStatus] = useState('');
+    const [editStatus, setEditStatus] = useState<any>('');
     const [players, setPlayers] = useState<any>([]);
     const [player, setPlayer] = useState<any>('');
     const [amount, setAmount] = useState<any>(0);
@@ -193,17 +194,17 @@ const Setting = ({ setCurrentPage }: any) => {
                     onClose={() => setIsModalOpen(false)}
                     title="Edit Match"
                 >
-                    <TextInput
+                    <Select
                         label="Status"
                         placeholder="Enter status"
-                        value={editStatus}
-                        onChange={(event) => setEditStatus(event.currentTarget.value)}
+                        data={['active', 'inactive']}
+                        onChange={setEditStatus}
                     />
-                    <TextInput
+                    <Select
                         label="Result"
                         placeholder="Enter result"
-                        value={editResult}
-                        onChange={(event) => setEditResult(event.currentTarget.value)}
+                        data={ratio}
+                        onChange={setEditResult}
                     />
                     <NumberInput
                         label="Multiplier"

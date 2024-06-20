@@ -4,6 +4,8 @@ import { Anchor, Button, NumberInput, Select, Table } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { getBetHistory, getMatchHistory, getPlayers, submitBet } from '../services/HttpService';
 
+export const ratio = ['0-0', '0-1', '0-2', '0-3', '0-4', '1-0', '1-1', '1-2', '1-3', '1-4', '2-0', '2-1', '2-2', '2-3', '2-4', '3-0', '3-1', '3-2', '3-3', '3-4', '4-0', '4-1', '4-2', '4-3', '4-4', 'Tỉ khác']
+
 const InputForm = ({ setCurrentPage }: any) => {
     const [matches, setMatches] = useState<any>([]);
     const [selectedCoordinate, setSelectedCoordinate] = useState<any>('');
@@ -73,7 +75,6 @@ const InputForm = ({ setCurrentPage }: any) => {
         </Table.Tr>
     ));
 
-    const ratio = ['0-0', '0-1', '0-2', '0-3', '0-4', '1-0', '1-1', '1-2', '1-3', '1-4', '2-0', '2-1', '2-2', '2-3', '2-4', '3-0', '3-1', '3-2', '3-3', '3-4', '4-0', '4-1', '4-2', '4-3', '4-4', 'Tỉ khác']
 
     useEffect(() => {
         const fetchData = async () => {
